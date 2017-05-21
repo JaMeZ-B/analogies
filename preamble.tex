@@ -1,0 +1,342 @@
+%!TEX root = introduction.tex
+% -- Author: Jannes Bantje, j.bantje@wwu.de
+\documentclass[a4paper,index=totoc,toc=bibliography,fontsize=11pt,DIV=13,headinclude,BCOR=5mm,cleardoublepage=empty,draft]{scrartcl}
+\usepackage{scrpage2} % wie fancyhdr, nur optimiert auf KOMA-Skript, leicht andere Syntax
+\usepackage{etoolbox,letltxmacro} % zum Programmieren
+\usepackage[final]{graphicx}
+\robustify\rotatebox
+
+% -- Farben
+\usepackage[x11names]{xcolor}
+\definecolor{dark_gray}{gray}{0.45}
+\definecolor{light_gray}{gray}{0.6}
+\definecolor{fb10_blue}{cmyk}{0.8,0.4,0.13,0.07}
+
+\usepackage{mathtools} % beinhaltet amsmath
+\mathtoolsset{centercolon,showmanualtags}
+\newtagform{brackets}{[}{]}
+\usetagform{brackets}
+\usepackage{fix-cm}
+% \usepackage{wasysym} % zusätzliche Symbole
+\usepackage[bbgreekl]{mathbbol}
+\usepackage{amssymb} % zusätzliche Symbole
+% \usepackage{stmaryrd} % für Blitz
+\usepackage{nicefrac} % schräge Brüche
+\usepackage{faktor}
+\newcommand{\Faktor}[1]{\faktor[\textstyle]{#1}}
+\usepackage{xfrac}
+\usepackage{cancel}
+\usepackage{mathdots} % Verbesserung von Punkten wie zB \ldots
+\usepackage[bb=px]{mathalfa}
+\usepackage{centernot}
+
+\usepackage{silence}
+\WarningFilter{latexfont}{Size substitutions with differences}
+\WarningFilter{latexfont}{Font shape `U/bbold/m/n' in size}
+
+\input{math.tex} % Liste mit Mathebefehlen laden
+% \allowdisplaybreaks
+
+% -- TikZ-Kram
+\usepackage{tikz-cd}
+\usetikzlibrary{quotes,babel,arrows.meta}
+\tikzset{>=Straight Barb[]}
+\tikzcdset{arrow style=math font}
+
+% -- tikz/externalize
+\usetikzlibrary{external}
+\tikzexternalize[prefix=Bilder/tikz/, up to date check=diff]
+\tikzset{external/system call={xelatex \tikzexternalcheckshellescape %-- verwende LuaLaTeX, wegen dynamischer Speicherallokation
+    -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
+\AtBeginEnvironment{tikzcd}{\tikzexternaldisable}
+\AtEndEnvironment{tikzcd}{\tikzexternalenable}
+\pgfkeys{/pgf/images/include external/.code=\includegraphics{#1}}
+
+% -- Einstellungen bezüglich Schriftart etc.
+% \usepackage{newpxtext}
+\usepackage{palatino}
+\usepackage[bigdelims,varbb,varg]{newpxmath}
+% \usepackage[euler-digits,euler-hat-accent]{eulervm} % Mathe-Schriftart
+\usepackage[no-math]{fontspec}
+\defaultfontfeatures{Mapping=tex-text, Ligatures={Required,Common,Contextual}} % Word Spacing?
+
+% \setmainfont{Syntax Next LT W1G}[UprightFont=* Regular, BoldFont=* Bold, BoldItalicFont=* Bold Italic, ItalicFont= * Italic]
+% \setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+% \setmainfont{Optima}
+% \setmainfont{Source Sans Pro}[Ligatures=Common, BoldFont={* Bold}, ItalicFont={* Light Italic}] % ,SmallCapsFont={Linux Libertine O}, SmallCapsFeatures={Letters=SmallCaps}
+\setmainfont{TeXGyrePagellaX}[Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,ItalicFont=*-Italic,BoldItalicFont=*-BoldItalic,ItalicFeatures={Style=Historic},Ligatures={Required,Common,Contextual,Historic},Numbers=OldStyle]
+
+% \setsansfont{OfficinaSerifBookC}[ItalicFont=*-Italic,BoldFont=OfficinaSerifBoldC,BoldItalicFont=OfficinaSerifBoldC-Italic]
+% \setsansfont{DIN Next Slab Pro}[Scale=MatchLowercase,BoldFont=* Medium, BoldItalicFont=* Medium Italic]
+% \setsansfont{Syntax Next LT W1G}[UprightFont=* Regular, BoldFont=* Bold, BoldItalicFont=* Bold Italic, ItalicFont= * Italic]
+% \setsansfont{texgyreadventor}[Scale=MatchUppercase, Extension=.otf, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+% \setsansfont{texgyrepagella}[Scale=MatchUppercase,Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{DIN Next W1G}[UprightFont=* Regular, BoldFont=* Bold, BoldItalicFont=* Bold Italic, ItalicFont= * Italic]
+
+% \setmonofont{Monaco}
+\setmonofont{SourceCodePro}[Scale=MatchLowercase,Extension=.otf,UprightFont=*-Regular, BoldFont=*-Semibold, ItalicFont=*-Light]
+% \setmonofont{texgyrecursor}[Scale=MatchLowercase, Extension=.otf, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+% \newfontface\fancy{Insignia LT Std Roman}[Scale=MatchUppercase,BoldFont=*,ItalicFont=*,BoldItalicFont=*,] % Alternate=1
+\addtokomafont{disposition}{\sffamily}
+\linespread{1.07}
+% \addtokomafont{chapter}{\fancy}
+% \addtokomafont{chapterentry}{\fancy}
+% \addtokomafont{part}{\fancy}
+% \addtokomafont{partentry}{\fancy}
+% \addtokomafont{section}{\fancy}
+% \addtokomafont{title}{\fancy\addfontfeature{Kerning=Uppercase,LetterSpace=8}}
+\defaultfontfeatures{Mapping=tex-text, Ligatures={Required,Common,Contextual},Extension=.otf}
+\usepackage{fontawesome}
+\usepackage[final]{microtype}
+\flushbottom
+\KOMAoptions{DIV=last}
+
+
+% -- Einstellungen bezüglich der Sprache, Silbentrennung etc.
+\usepackage{polyglossia}
+\setmainlanguage[variant=british]{english}
+
+% -- BibLaTeX 
+\usepackage[%
+	backend=biber,
+	sortlocale=auto,
+	natbib,
+	hyperref,
+	backref,
+	style=alphabetic
+	]%
+{biblatex}
+\renewcommand*{\mkbibnamefamily}[1]{%
+  \ifmknamesc{\textsc{#1}}{#1}}
+
+\renewcommand*{\mkbibnameprefix}[1]{%
+  \ifboolexpr{ test {\ifmknamesc} and test {\ifuseprefix} }
+    {\textsc{#1}}
+    {#1}}
+
+\def\ifmknamesc{%
+  \ifboolexpr{ test {\ifcurrentname{labelname}}
+               or test {\ifcurrentname{author}}
+               or ( test {\ifnameundef{author}} and test {\ifcurrentname{editor}} ) }}
+\addbibresource{quellen.bib}
+
+% -- Konfiguration von Hyperref
+\usepackage[hidelinks, pdfpagelabels, bookmarksopen=true, bookmarksnumbered=true, linkcolor=black, urlcolor=SkyBlue2, plainpages=false,pagebackref, citecolor=black, hypertexnames=true, pdfauthor={Jannes Bantje}, pdfborderstyle={/S/U}, linkbordercolor=SkyBlue2, colorlinks=false,backref=false]{hyperref}
+\hypersetup{final}
+
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+% -- \url aufhübschen
+\newcommand{\appendLink}[1]{#1\,\faExternalLink}
+\newcommand{\hrefsym}[2]{\href{#1}{\texttt{\appendLink{#2}}}}
+\renewcommand{\url}[1]{\hrefsym{#1}{\nolinkurl{#1}}}
+
+% -- Aufzählungen, Anführungszeichen etc.
+\usepackage[shortlabels,inline]{enumitem}
+\setlist[itemize,1]{label=\faCaretRight}
+\setlist[enumerate]{font=\bfseries}
+\setlist{itemsep=0pt}
+\usepackage[autostyle,german=quotes]{csquotes}
+
+
+% -- Indexverarbeitung
+\usepackage{makeidx}
+\newcommand{\bet}[1]{\textbf{\emph{#1}}}
+\newcommand{\Index}[1]{\bet{#1}\index{#1}}
+\makeindex
+% \setindexpreamble{{\noindent \itshape Die Seitenzahlen sind mit Hyperlinks zu den entsprechenden Seiten versehen, also anklickbar}\par \bigskip}
+\renewcommand{\indexpagestyle}{scrheadings}
+
+% -- Alles zum Thema Gliederung
+% \usepackage{chngcntr}
+% \counterwithin*{equation}{section}
+\numberwithin{equation}{section}
+% \setcounter{tocdepth}{3}
+
+% -- theorem packages
+\let\openbox\relax
+\usepackage{amsthm}
+\usepackage{thmtools,thm-restate}
+\usepackage{mdframed}
+\renewcommand{\listtheoremname}{Übersicht aller Aussagen}
+
+% -- Theoreme als PDF-Lesezeichen
+\usepackage{bookmark}
+\bookmarksetup{open,numbered}
+\makeatletter
+\newcommand*{\theorembookmark}{%
+  \bookmark[
+    dest=\@currentHref,
+    rellevel=1,
+    keeplevel,
+  ]{%
+    \thmt@thmname\space\csname the\thmt@envname\endcsname
+    \ifx\thmt@shortoptarg\@empty
+    \else
+      \space(\thmt@shortoptarg)%
+    \fi
+  }%
+}   
+\makeatother
+
+% -- Definition der einzelnen Umgebungen
+\declaretheoremstyle[%
+	headfont=\sffamily\bfseries,
+	notefont=\normalfont\sffamily,
+	bodyfont=\normalfont,
+	headformat=\NUMBER\ \NAME\NOTE,
+	headpunct=.,
+	postheadspace=1em,
+	spaceabove=15pt,spacebelow=10pt,
+	shaded={bgcolor=gray!20},
+	% mdframed={%
+	% 	backgroundcolor=gray!20,
+	% 	innertopmargin=0pt,
+	% 	innerleftmargin=0pt,
+	% 	% roundcorner=5pt,
+	% 	innerbottommargin=0pt,
+	% 	splittopskip = 0pt,
+	% 	% skipbelow=6pt,
+	% 	% skipbelow=6pt,
+	% 	topline=false,bottomline=false,leftline=false,rightline=false
+	% },
+	postheadhook=\theorembookmark]%
+{mainstyle}
+\declaretheoremstyle[%
+	headfont=\sffamily\bfseries,
+	notefont=\normalfont\sffamily,
+	bodyfont=\normalfont,
+	headformat=\NUMBER\ \NAME\NOTE,
+	headpunct=.,
+	postheadspace=1em,
+	spaceabove=15pt,spacebelow=10pt,
+	shaded={bgcolor=fb10_blue!20},
+	postheadhook=\theorembookmark]%
+{mainstyle_blue}
+\declaretheoremstyle[%
+	headfont=\sffamily\bfseries,
+	notefont=\normalfont\sffamily,
+	bodyfont=\normalfont,
+	headformat=\NUMBER\ \NAME\NOTE,
+	headpunct=.,
+	postheadspace=1em,
+	spaceabove=15pt,spacebelow=10pt,
+	postheadhook=\theorembookmark]%
+{mainstyle_unshaded}
+\declaretheoremstyle[%
+	headfont=\sffamily\bfseries,
+	notefont=\normalfont\sffamily,
+	bodyfont=\normalfont,
+	headformat=\NUMBER\NAME\NOTE,
+	headpunct=.,
+	postheadspace=1em,
+	spaceabove=15pt,spacebelow=10pt,
+	% shaded={bgcolor=gray!20},
+	postheadhook=\theorembookmark]%
+{mainstyle_unnumbered}
+\declaretheoremstyle[%
+	headfont=\sffamily\bfseries,
+	notefont=\normalfont\sffamily,
+	bodyfont=\normalfont,
+	headformat=swapnumber,
+	headpunct=.,
+	postheadspace=1em,
+	spaceabove=15pt,spacebelow=10pt,
+	shaded={bgcolor=gray!20},
+	postheadhook=\theorembookmark,
+	qed=\qedsymbol]%
+{mainstyleB}
+\declaretheorem[name=Definition,parent=section,style=mainstyle_blue]{definition}
+\declaretheorem[name=Definition \& Proposition,refname=Proposition,sharenumber=definition,style=mainstyle_blue]{definitionP}
+\declaretheorem[name=Definition,numbered=no,style=mainstyle_unnumbered]{definition*}
+\declaretheorem[name=Theorem,sharenumber=definition,style=mainstyle]{theorem}
+\declaretheorem[name=Theorem,numbered=no,style=mainstyle_unnumbered]{theorem*}
+\declaretheorem[name=Proposition,sharenumber=definition,style=mainstyle,refname=Proposition]{proposition}
+\declaretheorem[name=Lemma,sharenumber=definition,style=mainstyle]{lemma}
+\declaretheorem[name=Satz,refname=Satz,sharenumber=definition,style=mainstyle]{satz}
+\declaretheorem[name=Satz,sharenumber=definition,style=mainstyle_unshaded]{satzUnshaded}
+\declaretheorem[name=Definition,sharenumber=definition,style=mainstyle_unshaded]{definitionUnshaded}
+\declaretheorem[name=Satz,numbered=no,style=mainstyle_unnumbered]{satz*}
+\declaretheorem[name=Korollar,sharenumber=definition,style=mainstyle]{korollar}
+\declaretheorem[name=Korollar,sharenumber=definition,style=mainstyleB]{korollarB}
+\declaretheorem[name=Frage,numbered=no,style=mainstyle_unnumbered]{frage}
+\declaretheorem[name=Frage,sharenumber=definition,style=mainstyle_unshaded]{frageA}
+\declaretheorem[name=Erinnerung,sharenumber=definition,style=mainstyle_unshaded]{erinnerungA}
+\declaretheorem[name=Ausblick,sharenumber=definition,style=mainstyle_unshaded]{ausblick}
+\declaretheorem[name=Konvention,sharenumber=definition,style=mainstyle]{konvention}
+\declaretheorem[name=Notation,sharenumber=definition,style=mainstyle_unshaded]{notation}
+\declaretheorem[name=Bemerkung,sharenumber=definition,style=mainstyle_unshaded]{bemerkung}
+\declaretheorem[name=Bemerkung,numbered=no,style=mainstyle_unnumbered]{bemerkung*}
+\declaretheorem[name=Beispiel,sharenumber=definition,style=mainstyle_unshaded]{beispiel}
+\declaretheorem[name=Beispiel,numbered=no,style=mainstyle_unnumbered]{beispiel*}
+\declaretheorem[name=Exkurs,numbered=no,style=mainstyle_unnumbered]{exkurs*}
+
+% english versions
+\declaretheorem[name=Remark,sharenumber=definition,style=mainstyle_unshaded]{remark}
+\declaretheorem[name=Remark,numbered=no,style=mainstyle_unnumbered]{remark*}
+\declaretheorem[name=Example,sharenumber=definition,style=mainstyle_unshaded]{example}
+\declaretheorem[name=Corollary,sharenumber=definition,style=mainstyle]{corollary}
+
+% -- Beweise
+\declaretheoremstyle[headfont=\bfseries\scshape,bodyfont=\normalfont,headpunct=:,postheadspace=1em,spacebelow=12pt,spaceabove=2pt,qed=\qedsymbol]{beweise}
+\declaretheoremstyle[headfont=\bfseries\scshape,bodyfont=\normalfont,headpunct=:,postheadspace=1em,spacebelow=12pt,spaceabove=2pt]{beweisskizze}
+\declaretheoremstyle[headfont=\sffamily\bfseries,bodyfont=\normalfont,headpunct=:,postheadspace=1em,spacebelow=10pt,spaceabove=10pt]{bemerkungen}
+\declaretheorem[name=Beweis,numbered=no,style=beweise]{beweis}
+\let\proof\relax
+\declaretheorem[name=Proof,numbered=no,style=beweise]{proof}
+\declaretheorem[name=Sketch of Proof,numbered=no,style=beweisskizze]{sketch}
+
+\declaretheorem[name=Übung,numbered=no,style=bemerkungen]{uebung}
+\declaretheorem[name=Erinnerung,numbered=no,style=bemerkungen]{erinnerung}
+
+
+% \makeatletter
+% \long\def\theequation{\@fnsymbol \c@equation}
+% \makeatother
+
+% -- marginnotes package
+\usepackage[fulladjust]{marginnote}
+\renewcommand*{\marginfont}{\itshape \footnotesize}
+\usepackage{ragged2e}
+\renewcommand*{\raggedleftmarginnote}{\RaggedLeft}
+\renewcommand*{\raggedrightmarginnote}{\RaggedRight}
+
+% -- todonotes package
+\usepackage[textsize=small,obeyDraft]{todonotes}
+\LetLtxMacro{\oldtodo}{\todo}
+\renewcommand{\todo}[2][]{\tikzexternaldisable\oldtodo[#1]{#2}\tikzexternalenable}
+\LetLtxMacro{\oldmissingfigure}{\missingfigure}
+\renewcommand{\missingfigure}[2][]{\tikzexternaldisable\oldmissingfigure[{#1}]{#2}\tikzexternalenable}
+
+% -- Fußnoten anpassen
+\deffootnote[1.5em]{1.5em}{1.5em}{\textsuperscript{\thefootnotemark}\ }
+
+% -- Figures und Captions
+\usepackage{wrapfig}
+
+%--Römische Zahlen
+\newcommand{\RM}[1]{\MakeUppercase{\expandafter{\romannumeral #1.\relax}}}
+\robustify\RM
+
+
+% -- Metadaten für die Titelei
+\author{Jannes Bantje}
+
+
+% -- Kopf- und Fußzeilen
+\setheadsepline{1pt}[\color{light_gray}]
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\automark{section}
+\lehead{\includegraphics[height=0.6 cm,keepaspectratio]{Bilder/Logo_WWU_Muenster_light_gray.pdf}}
+\lohead{\color{dark_gray}\normalfont\footnotesize\sffamily\itshape Introduction to Knots and Primes -- Jannes Bantje}
+\rohead{\includegraphics[height=0.6 cm,keepaspectratio]{Bilder/fb10logo_gray.pdf}}
+
+\ofoot[{\color{dark_gray}\sffamily\LARGE \thepage}]{{\color{dark_gray}\sffamily\LARGE \thepage}} %hier wir auch der plain Stil bearbeitet!
+\ifoot{ \color{dark_gray} \sffamily\small \leftmark}
+
+% -- Inhaltsverzeichnis und weitere Pakte, die zuletzt geladen werden sollten
+\usepackage[tocindentauto]{tocstyle}
+\usetocstyle{KOMAlike}
+\usepackage{ellipsis}
+

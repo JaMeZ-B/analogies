@@ -1,0 +1,102 @@
+%!TEX root = introduction.tex
+\DeclareMathOperator{\sgn}{sgn} % Signum
+\DeclareMathOperator{\im}{im} % Bild
+\DeclareMathOperator{\supp}{supp} % Träger/Support
+\DeclareMathOperator{\id}{id} % Identität
+\DeclareMathOperator{\pr}{pr} % Projektion
+\DeclareMathOperator{\Hom}{Hom} % Homomorphismen
+\DeclareMathOperator{\sym}{sym} % symmetrisch
+\DeclareMathOperator{\Skew}{skew} % schiefsymmetrisch
+\DeclareMathOperator{\coker}{coker}
+% \DeclareMathOperator{\deg}{deg}
+% \DeclareMathOperator{\zentrum}{Z}
+\newcommand{\zentrum}{\mathrm{Z}}
+
+% -- Matrixgruppen
+\DeclareMathOperator{\Mat}{Mat} % Matrizen
+\DeclareMathOperator{\End}{End} % Endomorphismen
+\DeclareMathOperator{\GL}{GL} % allgemeine lineare Gruppe
+\DeclareMathOperator{\SL}{SL} % spezielle lineare Gruppe
+\DeclareMathOperator{\On}{O} % orthogonale Gruppe
+\DeclareMathOperator{\SO}{SO} % spezielle orthogonale Gruppe
+\DeclareMathOperator{\Un}{U} % unitäre Gruppe
+\DeclareMathOperator{\SU}{SU} % spezielle unitäre Gruppe
+
+% -- besserer underbrace befehl
+\newcommand{\Underbrace}[2]{{\underbrace{#1}_{#2}}}
+
+
+% -- Zum Finetuning von Befehlen
+\makeatletter
+\newcommand{\raisemath}[1]{\mathpalette{\raisem@th{#1}}}
+\newcommand{\raisem@th}[3]{\raisebox{#1}{$#2#3$}}
+\makeatother
+
+
+%--Mengen
+\newcommand\SetSymbol[1][]{\nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{}}
+\providecommand\given{} % to make it exist
+\DeclarePairedDelimiterX\set[1]\{\}{\renewcommand\given{\SetSymbol[\delimsize]}#1}
+
+% -- Betrag und Skalarprodukt
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiterX\skal[2]{\langle}{\rangle}{#1\,,\,#2}
+
+%--Umklammern
+\DeclarePairedDelimiter\enbrace{(}{)}
+\DeclarePairedDelimiter\benbrace{[}{]}
+\DeclarePairedDelimiter\homo{\llbracket}{\rrbracket}
+\newcommand{\ssbrace}[1]{{\scriptscriptstyle\enbrace{#1}}}
+
+%--Norm
+\DeclarePairedDelimiter\norm{\Vert}{\Vert}
+
+% -- Box mit vorgegebener minimaler Länge
+\DeclareRobustCommand{\minwidthbox}[2]{%
+  \ifmmode
+    \expandafter\mathmakebox
+  \else
+    \expandafter\makebox
+  \fi
+  [\ifdim#2<\width\width\else#2\fi]{#1}%
+}
+
+% -- farbiges Untersteichen im Mathe-Modus
+\def\mathul#1#2{\color{#1}\underline{{\color{black}#2}}\color{black}} 
+
+
+% - verbessertes Integral
+\newcommand{\Int}[1]{\int_{\mathrlap{#1}}\,\,}
+
+% -- Alles spezielles aus der Differentialtopologie
+\newcommand{\Tang}{\ensuremath{\mathrm{T}\mkern-0.85mu}}
+\newcommand{\mathd}{\ensuremath{\mathrm{d}\mkern-0.7mu}}
+\newcommand{\diff}[2]{\ensuremath{\frac{{\partial #1}}{{\partial #2}}}}
+\newcommand{\diffs}[2]{\ensuremath{\partial #1/\partial #2}}
+\newcommand{\diffd}[2]{\ensuremath{\frac{\mathd #1}{\mathd #2} }}
+\DeclareMathOperator{\Lie}{L}
+\DeclareMathOperator{\Ad}{Ad}  
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\Spin}{Spin}
+% \DeclareMathOperator{\spin}{spin}
+\newcommand{\spin}{\mathop{\mathfrak{spin}}}
+\newcommand{\Ce}{\mathcal{C}}
+\DeclareMathOperator{\vol}{vol}
+
+
+% -- Kategorien und Ähnliches
+\newcommand{\VEKT}{\textsc{Vekt}}
+
+%--Abbildungsdefinition
+\newcommand{\mapdef}[5]{%
+	\[
+		\begin{array}{rcl}
+			\textstyle #1 &\xrightarrow{\minwidthbox{#5}{2em}} & \textstyle #2 \\[0.5ex]
+			\textstyle #3 &\xmapsto{\minwidthbox{\mbox{ }}{2em}} & \textstyle #4
+		\end{array}
+	\]
+}
+
+%--modifiziertes Stackrel
+\newcommand{\StackText}[2]{\stackrel{\mbox{\scriptsize #1}}{#2}}
+\newcommand{\StackTextClap}[2]{\stackrel{\mathclap{\mbox{\scriptsize #1}}}{#2}}

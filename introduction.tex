@@ -1,0 +1,62 @@
+%!TEX TS-program = xelatex
+%!TEX TS-options = -shell-escape
+\input{preamble.tex}
+
+\begin{document}
+\pagenumbering{Roman}
+
+\input{title.tex}
+
+\tableofcontents
+
+\tableofcontents
+\section*{Notation}
+\addcontentsline{toc}{section}{Notation}
+
+\cleardoubleoddemptypage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\setcounter{footnote}{0}
+
+\section{Introduction to knot theory} % (fold)
+\label{sec:intro_knots}
+
+\begin{definition}
+	A \Index{knot} is the image of an embedding $S^1 \hookrightarrow S^3$.
+	A \Index{knot type} is the equivalence class of such embeddings under ambient isotopy. 
+\end{definition}
+
+We usually wont distinguish between these two notions and refer to a knot type simply as a knot.
+To exclude some pathological knots we restrict our attention to \emph{tame knots}:
+
+\begin{definition}
+	A knot $K$ is called \bet{tame}\index{knot!tame} if it is ambient isotopic to a polygonal knot, i.e. a knot that is piecewise linear.
+\end{definition}
+
+\begin{example}
+	Every smooth knot is tame, because by a classical theorem of calculus every $C^1$ map $\gamma \colon [0,1] \to \mathbb{R}^n$ is rectifiable.\todo{Argument für die Umkehrung}
+\end{example}
+
+\textcite[p.~9]{morishita} assumes every topological space considered to be a PL-manifold and every map between topological spaces to be PL as well.
+
+Since we are interested only in tame knots, for every knot $K$ we have a \Index{tubular neighbourhood} $V_k$, that is: There is a vector bundle $p \colon E \to K$ and an embedding $f \colon E \to S^3$ such that (with $s_0$ being the zero section of $E \to K$)
+\begin{itemize}
+	\item $f \circ s_0 = {\id_K}$ and
+	\item $V_K \coloneqq f(E)$ is an open neighbourhood of $K$ in $S^3$. \hfill see \textcite{hirschDifferential}
+\end{itemize}
+Note that any two such tubular neighbourhoods are isotopic \cite[Chap.~4, Thm.~5.3]{hirschDifferential}.
+
+% section intro_knots (end)
+
+
+
+\cleardoubleoddemptypage
+\pagenumbering{Alph}
+\setcounter{page}{1}
+\appendix
+\printbibliography
+\printindex
+\todototoc
+\listoftodos[To-do's]
+\end{document}
