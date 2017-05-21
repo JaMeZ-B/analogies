@@ -47,7 +47,42 @@ Since we are interested only in tame knots, for every knot $K$ we have a \Index{
 \end{itemize}
 Note that any two such tubular neighbourhoods are isotopic \cite[Chap.~4, Thm.~5.3]{hirschDifferential}.
 
+\begin{definition}
+	Let $K$ be a knot. $X_K \coloneqq S^3 \setminus \interior(V_k)$ is the \Index{knot exterior} of $K$.
+	The \Index{knot group} is defined as the fundamental group of the knot exterior: $G_K \coloneqq \pi_1(X_K)$.
+\end{definition}
 % section intro_knots (end)
+
+\section{Sheafs} % (fold)
+\label{sec:sheafs}
+
+% section sheafs (end)
+
+
+\section{Rings and ideals} % (fold)
+\label{sec:rings_and_ideals}
+Throughout this section any ring is considered to be commutative with identity element; any ring homomorphism $\varphi \colon R \to S$ should satisfy $f(1_R) =1_S$.
+
+\todo[inline]{ring localization}
+
+\begin{definition}
+	Let $R$ be a commutative ring. 
+	\[
+		\Spec(R) \coloneqq \set*{\mathfrak{p} \subset R \given \mathfrak{p} \text{ is a prime ideal} }
+	\]
+	is called the \Index{prime spectrum} of $R$.
+	$\Spec(R)$ is endowed with the \Index{Zariski topology} with open basis $\mathcal{U} \coloneqq \set*{U_a}_{a \in R}$ where
+	\[
+		U_a \coloneqq \set*{\mathfrak{p} \in \Spec(R) \given a \notin \mathfrak{p}}
+	\] 
+\end{definition}
+
+On the topological space $\Spec(R)$ there is a sheaf of commutative rings $\mathcal{O}_{\Spec(R)}$ defined by
+\[
+	\mathcal{O}_{\Spec(R)}(U_a) = R_a \coloneqq \set*{\frac{r}{a^n} \given r \in R, n \in \mathbb{N}_{\ge 0}}
+\]
+for $a \neq 0$
+% section rings_and_ideals (end)
 
 
 
