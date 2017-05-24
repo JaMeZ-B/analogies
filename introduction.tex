@@ -1,5 +1,6 @@
-%!TEX TS-program = xelatex
-%!TEX TS-options = -shell-escape
+%!TEX program = xelatex
+%!TEX enableShellEscape = true
+%!TEX format = pdf
 \input{preamble.tex}
 
 \begin{document}
@@ -24,7 +25,7 @@
 
 \begin{definition}
 	A \Index{knot} is the image of an embedding $S^1 \hookrightarrow S^3$.
-	A \Index{knot type} is the equivalence class of such embeddings under ambient isotopy. 
+	A \Index{knot type} is the equivalence class of such embeddings under ambient isotopy.
 \end{definition}
 
 We usually wont distinguish between these two notions and refer to a knot type simply as a knot.
@@ -63,10 +64,54 @@ Note that any two such tubular neighbourhoods are isotopic \cite[Chap.~4, Thm.~5
 \label{sec:rings_and_ideals}
 Throughout this section any ring is considered to be commutative with identity element; any ring homomorphism $\varphi \colon R \to S$ should satisfy $\varphi(1_R) =1_S$.
 
+\begin{definition}[{name=[Integral Elements]{\cite[Def.~2.1]{neukirch}}}]
+	Let $A \subseteq B$ be an extension of ring.
+	An element $b \in B$ ist called \Index{integral} over $A$, if ist satisfies a monic equation
+	\[
+		x^n + a_1 x^{n-1} + \ldots + a_n = 0
+	\]
+	with coefficients $a_i \in A$, $n\ge 1$.
+	$B$ is called \Index{integral} over $A$, if all its elements are integral.
+\end{definition}
+
+\begin{remark}
+	The sum and the product of two integral elements are again integral.
+	While this might seem reasonable, the proof is far form being trivial! (see \cite[Prop.~2.2]{neukirch})
+\end{remark}
+
+\begin{definition}
+	The \emph{ring}
+	\[
+		\overline{A} \coloneqq \set{b \in B \given b \text{ integral over }A}
+	\]
+	is called \Index{integral closure} of $A$ in $B$.
+	$A$ is called \Index{integrally closed}, if $\overline{A} = A$.
+\end{definition}
+
+By proving a lemma about the transitivity of \enquote{is integral over} one sees, that $\overline{A}$ is indeed integrally closed.
+
+\begin{definition}[{name=[algebraic number field]}]
+	A finite field extension of $\mathbb{Q}$ is called an \Index{algebraic number field}.
+\end{definition}
+
+This leads us to an object of central interest in algebraic number theory:
+
+\begin{definition}
+	Let $K$ be some algebraic number field.
+	The integral closure $\mathcal{O}_K \subseteq K$ of $\mathbb{Z} \subseteq \mathbb{Q}$ is called \Index{Ring of integers} of the algebraic number field $K$.
+\end{definition}
+
+For fans of commutative diagrams:
+\[
+	\begin{tikzcd}
+		\mathcal{O}_K \rar[hook] & K \\
+		\mathbb{Z} \uar[hook] \rar[hook] & \mathbb{Q} \uar[hook]
+	\end{tikzcd}
+\]
 \todo[inline]{ring localization}
 
 \begin{definition}
-	Let $R$ be a commutative ring. 
+	Let $R$ be a commutative ring.
 	\[
 		\Spec(R) \coloneqq \set*{\mathfrak{p} \subset R \given \mathfrak{p} \text{ is a prime ideal} }
 	\]
@@ -74,7 +119,7 @@ Throughout this section any ring is considered to be commutative with identity e
 	$\Spec(R)$ is endowed with the \Index{Zariski topology} with open basis $\mathcal{U} \coloneqq \set*{U_a}_{a \in R}$ where
 	\[
 		U_a \coloneqq \set*{\mathfrak{p} \in \Spec(R) \given a \notin \mathfrak{p}}
-	\] 
+	\]
 \end{definition}
 
 On the topological space $\Spec(R)$ there is a sheaf of commutative rings $\mathcal{O}_{\Spec(R)}$ defined by
