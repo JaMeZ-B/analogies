@@ -86,7 +86,7 @@ Throughout this section any ring is considered to be commutative with identity e
 	Let $A \subseteq B$ be an extension of rings.
 	An element $b \in B$ ist called \Index{integral} over $A$, if ist satisfies a monic equation
 	\[
-		x^n + a_1 x^{n-1} + \ldots + a_n = 0
+		x^n + a_1 x^{n-1} + \ldots + a_n =0
 	\]
 	with coefficients $a_i \in A$, $n\ge 1$.
 	$B$ is called \Index{integral} over $A$, if all its elements are integral.
@@ -94,7 +94,7 @@ Throughout this section any ring is considered to be commutative with identity e
 
 \begin{remark}
 	The sum and the product of two integral elements are again integral.
-	While this might seem reasonable, the proof is far from being trivial! (see \cite[Prop.~2.2]{neukirch})
+	While this might seem reasonable, the proof is far from being trivial! (see \textcite[Prop.~2.2]{neukirch})
 \end{remark}
 
 \begin{definition}[{name=[integral closure]}]
@@ -160,9 +160,19 @@ and may be regarded as the greatest common divisor.
 The least common multiple is the intersection $\mathfrak{a} \cap \mathfrak{b}$.
 The product of two ideals is
 \[
-	\mathfrak{a} \mathfrak{b} = \set*{\sum\nolimits_i a_i b_i \given a_i \in \mathfrak{a}, b_i in \mathfrak{b}}
+	\mathfrak{a} \mathfrak{b} = \set*{\sum\nolimits_i a_i b_i \given a_i \in \mathfrak{a}, b_i \in \mathfrak{b}}
 \]
+The ideals with this multiplication now have a unique prime factorization:
 
+\begin{theorem}[{name={\cite[Thm.~3.3]{neukirch}}}]
+	Every ideal $\mathfrak{a}$ of $\mathcal{O}$ different from $(0)$ and $(1)$ admits a factorization
+	\[
+		\mathfrak{a} = \mathfrak{p}_1 \cdots \mathfrak{p}_r
+	\]
+	into nonzero prime ideals $\mathfrak{p}_i$ of $\mathcal{O}$ which is unique up to the order of the factors.
+\end{theorem}
+
+\todo[inline]{Quadratische Zahlkörper erläutern}
 \todo[inline]{ring localization}
 
 
