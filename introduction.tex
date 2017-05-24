@@ -1,7 +1,9 @@
 %!TEX program = xelatex
 %!TEX enableShellEscape = true
 %!TEX format = pdf
+%!TeX spellcheck = en-UK
 \input{preamble.tex}
+% \addbibresource{quellen.bib}
 
 \begin{document}
 \pagenumbering{Roman}
@@ -14,7 +16,7 @@
 \section*{Notation}
 \addcontentsline{toc}{section}{Notation}
 
-\cleardoubleoddemptypage
+\cleardoubleoddemptypage%
 
 \pagenumbering{arabic}
 \setcounter{page}{1}
@@ -41,17 +43,33 @@ To exclude some pathological knots we restrict our attention to \emph{tame knots
 
 \textcite[p.~9]{morishita} assumes every topological space considered to be a PL-manifold and every map between topological spaces to be PL as well.
 
-Since we are interested only in tame knots, for every knot $K$ we have a \Index{tubular neighbourhood} $V_k$, that is: There is a vector bundle $p \colon E \to K$ and an embedding $f \colon E \to S^3$ such that (with $s_0$ being the zero section of $E \to K$)
+Since we are interested only in tame knots, for every knot $K$ we have a \Index{tubular neighbourhood} $V_k$, that is: There is a vector bundle $E \to K$ and an embedding $f \colon E \to S^3$ such that (with $s_0$ being the zero section of $E \to K$)
 \begin{itemize}
 	\item $f \circ s_0 = {\id_K}$ and
 	\item $V_K \coloneqq f(E)$ is an open neighbourhood of $K$ in $S^3$. \hfill see \textcite{hirschDifferential}
 \end{itemize}
-Note that any two such tubular neighbourhoods are isotopic \cite[Chap.~4, Thm.~5.3]{hirschDifferential}.
+Note that any two such tubular neighbourhoods are isotopic, see \textcite[Chap.~4, Thm.~5.3]{hirschDifferential}.
 
 \begin{definition}
 	Let $K$ be a knot. $X_K \coloneqq S^3 \setminus \interior(V_k)$ is the \Index{knot exterior} of $K$.
 	The \Index{knot group} is defined as the fundamental group of the knot exterior: $G_K \coloneqq \pi_1(X_K)$.
 \end{definition}
+
+\begin{lemma}
+	The knot group is a \Index{knot invariant}, i.e. for two ambient isotopic Knots $K_1$ and $K_2$ we have
+	\[
+		G_{K_1} \cong G_{K_2}
+	\]
+\end{lemma}
+\begin{proof}
+	Pick embeddings $g_1, g_2 \colon S^1 \hookrightarrow S^3$ with $g_i(S^1)=K_i$.
+	Let $F \colon S^3 \times I \to S^3$ be an ambient isotopy, i.e. $F_0 = {\id_M}$, $F_t$ is a homeomorphism for each $t \in I$ and $F_1 \circ g_1 = g_2$.
+	Now $F_1$ restricted to the knot exterior $X_{K_1}$ is a homeomorphism $X_{K_1} \cong X_{K_2}$ and therefore $G_{K_1} \cong G_{K_2}$ since the fundamental group is a topological invariant.
+\end{proof}
+
+
+
+
 % section intro_knots (end)
 
 \section{Sheafs} % (fold)
@@ -65,7 +83,7 @@ Note that any two such tubular neighbourhoods are isotopic \cite[Chap.~4, Thm.~5
 Throughout this section any ring is considered to be commutative with identity element; any ring homomorphism $\varphi \colon R \to S$ should satisfy $\varphi(1_R) =1_S$.
 
 \begin{definition}[{name=[Integral Elements]{\cite[Def.~2.1]{neukirch}}}]
-	Let $A \subseteq B$ be an extension of ring.
+	Let $A \subseteq B$ be an extension of rings.
 	An element $b \in B$ ist called \Index{integral} over $A$, if ist satisfies a monic equation
 	\[
 		x^n + a_1 x^{n-1} + \ldots + a_n = 0
@@ -76,10 +94,10 @@ Throughout this section any ring is considered to be commutative with identity e
 
 \begin{remark}
 	The sum and the product of two integral elements are again integral.
-	While this might seem reasonable, the proof is far form being trivial! (see \cite[Prop.~2.2]{neukirch})
+	While this might seem reasonable, the proof is far from being trivial! (see \cite[Prop.~2.2]{neukirch})
 \end{remark}
 
-\begin{definition}
+\begin{definition}[{name=[integral closure]}]
 	The \emph{ring}
 	\[
 		\overline{A} \coloneqq \set{b \in B \given b \text{ integral over }A}
@@ -88,7 +106,7 @@ Throughout this section any ring is considered to be commutative with identity e
 	$A$ is called \Index{integrally closed}, if $\overline{A} = A$.
 \end{definition}
 
-By proving a lemma about the transitivity of \enquote{is integral over} one sees, that $\overline{A}$ is indeed integrally closed.
+By proving the transitivity of the relation \enquote{is integral over} one sees, that $\overline{A}$ is indeed integrally closed.
 
 \begin{definition}[{name=[algebraic number field]}]
 	A finite field extension of $\mathbb{Q}$ is called an \Index{algebraic number field}.
@@ -96,9 +114,9 @@ By proving a lemma about the transitivity of \enquote{is integral over} one sees
 
 This leads us to an object of central interest in algebraic number theory:
 
-\begin{definition}
+\begin{definition}[{name=[ring of integers]}]
 	Let $K$ be some algebraic number field.
-	The integral closure $\mathcal{O}_K \subseteq K$ of $\mathbb{Z} \subseteq \mathbb{Q}$ is called \Index{Ring of integers} of the algebraic number field $K$.
+	The integral closure $\mathcal{O}_K \subseteq K$ of $\mathbb{Z} \subseteq \mathbb{Q}$ is called \Index{ring of integers} of the algebraic number field $K$.
 \end{definition}
 
 For fans of commutative diagrams:
@@ -108,9 +126,48 @@ For fans of commutative diagrams:
 		\mathbb{Z} \uar[hook] \rar[hook] & \mathbb{Q} \uar[hook]
 	\end{tikzcd}
 \]
+We think of $\mathcal{O}_K$ as a generalization of $\mathbb{Z}$, which raises the question whether $\mathcal{O}_K$ has a \Index{unique prime factorization}. Let's consinder the following example:
+
+\begin{example}
+	$K=\mathbb{Q}(\sqrt{d})$ for some square-free integer $d \neq 0$ is a \Index{quadratic field} since its degree is two (this is in fact an equivalence).
+	It's not hard to see, that for $d=-5$ we have $\mathcal{O}_K = \mathbb{Z}[\sqrt{-5}] = \mathbb{Z} + \mathbb{Z}\sqrt{-5}$.
+	The following factorization into irreducible elements is not unique
+	\[
+		21 = 3 \cdot 7 = \enbrace*{1+ 2 \sqrt{-5}} \cdot \enbrace*{1 - 2 \sqrt{-5}}
+	\]
+\end{example}
+
+Historically this failure of of unique factorization led to the discovery of ideal theory (by \textsc{Edward Kummer} 1847).
+Some basic properties of $\mathcal{O}_K$ concerning ideals are:
+
+\begin{theorem}[{name={\cite[Thm.~3.1]{neukirch}}}]
+	The ring $\mathcal{O}_K$ is noetherian, integrally closed and every prime ideal $\mathfrak{p} \neq 0$ is a maximal ideal.
+\end{theorem}
+
+This set of properties leads us to the following definition:
+
+\begin{definition}[{name=[Dedekind domain]}]
+	A noetherian, integrally closed integral domain in which every nonzero prime ideals maximal is called a \Index{Dedekind domain}.
+\end{definition}
+
+A Dedekind domain can be viewed as a generalization of principal ideal domains --- just as $\mathcal{O}_K$ may be viewed as a generalization of $\mathbb{Z}$.
+The notion of divisibility for ideals is the following: Let $\mathfrak{a}, \mathfrak{b} \subseteq \mathcal{O}$ be ideals in a Dedekind domain.
+Then $\mathfrak{a} \mid \mathfrak{b}$ is defined as $\mathfrak{b} \subseteq \mathfrak{a}$, the sum of ideals is
+\[
+	\mathfrak{a} + \mathfrak{b} = \set*{a + b \given a \in \mathfrak{a}, b \in \mathfrak{b}}
+\]
+and may be regarded as the greatest common divisor.
+The least common multiple is the intersection $\mathfrak{a} \cap \mathfrak{b}$.
+The product of two ideals is
+\[
+	\mathfrak{a} \mathfrak{b} = \set*{\sum\nolimits_i a_i b_i \given a_i \in \mathfrak{a}, b_i in \mathfrak{b}}
+\]
+
 \todo[inline]{ring localization}
 
-\begin{definition}
+
+
+\begin{definition}[{name=[prime spectrum]}]
 	Let $R$ be a commutative ring.
 	\[
 		\Spec(R) \coloneqq \set*{\mathfrak{p} \subset R \given \mathfrak{p} \text{ is a prime ideal} }
@@ -131,12 +188,12 @@ for $a \neq 0$
 
 
 
-\cleardoubleoddemptypage
+\cleardoubleoddemptypage%
 \pagenumbering{Alph}
 \setcounter{page}{1}
-\appendix
-\printbibliography
-\printindex
-\todototoc
+\appendix%
+\printbibliography%
+\printindex%
+\todototoc%
 \listoftodos[To-do's]
 \end{document}
