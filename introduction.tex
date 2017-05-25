@@ -78,7 +78,7 @@ Note that any two such tubular neighbourhoods are isotopic, see \textcite[Chap.~
 % section sheafs (end)
 
 
-\section{Rings and ideals} % (fold)
+\section{Algebraic number fields and ring of integers} % (fold)
 \label{sec:rings_and_ideals}
 Throughout this section any ring is considered to be commutative with identity element; any ring homomorphism $\varphi \colon R \to S$ should satisfy $\varphi(1_R) =1_S$.
 
@@ -126,11 +126,55 @@ For fans of commutative diagrams:
 		\mathbb{Z} \uar[hook] \rar[hook] & \mathbb{Q} \uar[hook]
 	\end{tikzcd}
 \]
-We think of $\mathcal{O}_K$ as a generalization of $\mathbb{Z}$, which raises the question whether $\mathcal{O}_K$ has a \Index{unique prime factorization}. Let's consinder the following example:
+We think of $\mathcal{O}_K$ as a generalization of $\mathbb{Z}$, which raises the question whether $\mathcal{O}_K$ has a \Index{unique prime factorization}. Let's consinder an example.
+Let $D\neq 0$ be some square-free integer.
+The field
+\[
+	K=\mathbb{Q}(\sqrt{D}) = \set*{a + b \sqrt{D} \given a,b \in \mathbb{Q}}
+\]
+is a \Index{quadratic field}. $\mathcal{O}_K$ can be explicitly computed:
+
+\begin{lemma}\label{lem:quadratic_integers}
+	Let $D\neq 0$ be some square-free integer.
+	With $K=\mathbb{Q}(\sqrt{D})$ we have
+	\[
+		\mathcal{O}_K = \begin{cases}
+			\mathbb{Z}\benbrace[\big]{\sqrt{D}}, &\text{ if }D \equiv 2,3 \mod 4\\[1ex]
+			\mathbb{Z}\benbrace*{\frac{1+ \sqrt{D}}{2}}, &\text{ if } D \equiv 1 \mod 4
+		\end{cases}
+	\]
+\end{lemma}
+\begin{proof}
+	If $D \equiv 1 \mod 4$ then $p(X)= X^2 -X + (1-D)/4 \in \mathbb{Z}[X]$ and $p \enbrace[\big]{\frac{1+ \sqrt{D}}{2}}=0$, therefore $\frac{1+ \sqrt{D}}{2}$ is integral.
+	So $\mathcal{O}_K$ has $\mathbb{Z}[\sqrt{D}]$ as a subring and if $D \equiv 1 \mod 4$ the bigger subring $\mathbb{Z}\benbrace[\big]{\frac{1+ \sqrt{D}}{2}}$.
+	We show, that there are no other integral elements.
+	The minimal polynom of $a + b \sqrt{D}$ with $b\neq 0$ is
+	\[
+		p(X) = X^2 -2aX + (a^2 - Db^2)
+	\]
+	So for $a +b \sqrt{D}$ to be integral we need $2a \in \mathbb{Z}$ and $(a^2 - Db^2) \in \mathbb{Z}$.
+	Since $D$ is square-free we also get $2b \in \mathbb{Z}$ and $(a \in \mathbb{Z} \implies b \in \mathbb{Z})$.
+
+	This leaves us with the $a \notin \mathbb{Z}$, implying that $2a=2k+1$ is odd.
+	We get
+	\[
+		a^2 + Db^2 = \enbrace*{\frac{2k+1}{2}}^2 + \frac{4Db^2}{4} = \frac{4j^2 +4j + 4 Db^2 + 1}{4}
+	\]
+	The numerator has residue $1$ modulo $4$ while the denominator is divisible by $4$, if $b \in \mathbb{Z}$.
+	Hence $b \notin \mathbb{Z}$ and $2b =2 l + 1$, which leads us to
+	\[
+		a^2 + Db^2 = \frac{4k^2 +4k +1 - D(4l^2 + 4l +1)}{4}
+	\]
+	For this to be an integer, we need to have $D \equiv 1 \mod 4$.
+	Our element $a + b \sqrt{D}$ is contained in the ring $\mathbb{Z}\benbrace[\big]{\frac{1+ \sqrt{D}}{2}}$ as a little calculation shows:
+	\[
+		\frac{2k+1}{2} + \frac{2l+1}{2} \cdot \sqrt{D} = \frac{2k+1}{2} - \frac{2l+1}{2} + \frac{2l+1}{2} + \frac{(2l+1)\sqrt{D}}{2} = \Underbrace{(k-l)}{\in \mathbb{Z}} + \Underbrace{(2l+1)}{\in \mathbb{Z}} \cdot \frac{1+ \sqrt{D}}{2}
+	\]
+	This finished the proof.
+\end{proof}
 
 \begin{example}
-	$K=\mathbb{Q}(\sqrt{d})$ for some square-free integer $d \neq 0$ is a \Index{quadratic field} since its degree is two (this is in fact an equivalence).
-	It's not hard to see, that for $d=-5$ we have $\mathcal{O}_K = \mathbb{Z}[\sqrt{-5}] = \mathbb{Z} + \mathbb{Z}\sqrt{-5}$.
+	For $d=-5$ we have $\mathcal{O}_K = \mathbb{Z}[\sqrt{-5}] = \mathbb{Z} + \mathbb{Z}\sqrt{-5}$ by \cref{lem:quadratic_integers}.
 	The following factorization into irreducible elements is not unique
 	\[
 		21 = 3 \cdot 7 = \enbrace*{1+ 2 \sqrt{-5}} \cdot \enbrace*{1 - 2 \sqrt{-5}}
@@ -172,9 +216,17 @@ The ideals with this multiplication now have a unique prime factorization:
 	into nonzero prime ideals $\mathfrak{p}_i$ of $\mathcal{O}$ which is unique up to the order of the factors.
 \end{theorem}
 
+\section{$p$-adic numbers}
+\label{sec:p-adic numbers}
+
+
+
 \todo[inline]{Quadratische Zahlkörper erläutern}
 \todo[inline]{ring localization}
 
+
+\section{Affine shemes}
+\label{sec:affine shemes}
 
 
 \begin{definition}[{name=[prime spectrum]}]
