@@ -140,7 +140,7 @@ is a \Index{quadratic field}. $\mathcal{O}_K$ can be explicitly computed:
 	\[
 		\mathcal{O}_K = \begin{cases}
 			\mathbb{Z}\benbrace[\big]{\sqrt{D}}, &\text{ if }D \equiv 2,3 \mod 4\\[1ex]
-			\mathbb{Z}\benbrace*{\frac{1+ \sqrt{D}}{2}}, &\text{ if } D \equiv 1 \mod 4
+			\mathbb{Z}\benbrace[\big]{\frac{1+ \sqrt{D}}{2}}, &\text{ if } D \equiv 1 \mod 4
 		\end{cases}
 	\]
 \end{lemma}
@@ -166,7 +166,7 @@ is a \Index{quadratic field}. $\mathcal{O}_K$ can be explicitly computed:
 		a^2 + Db^2 = \frac{4k^2 +4k +1 - D(4l^2 + 4l +1)}{4}
 	\]
 	For this to be an integer, we need to have $D \equiv 1 \mod 4$.
-	Our element $a + b \sqrt{D}$ is contained in the ring $\mathbb{Z}\benbrace[\big]{\frac{1+ \sqrt{D}}{2}}$ as a little calculation shows:
+	Our element $a + b \sqrt{D}$ is contained in the ring $\mathbb{Z}\benbrace[\big]{\frac{1+ \sqrt{D}}{2}}$ as a simple application of the famous \enquote{add zero}-trick shows:
 	\[
 		\frac{2k+1}{2} + \frac{2l+1}{2} \cdot \sqrt{D} = \frac{2k+1}{2} - \frac{2l+1}{2} + \frac{2l+1}{2} + \frac{(2l+1)\sqrt{D}}{2} = \Underbrace{(k-l)}{\in \mathbb{Z}} + \Underbrace{(2l+1)}{\in \mathbb{Z}} \cdot \frac{1+ \sqrt{D}}{2}
 	\]
@@ -194,7 +194,7 @@ This set of properties leads us to the following definition:
 	A noetherian, integrally closed integral domain in which every nonzero prime ideals maximal is called a \Index{Dedekind domain}.
 \end{definition}
 
-A Dedekind domain can be viewed as a generalization of principal ideal domains --- just as $\mathcal{O}_K$ may be viewed as a generalization of $\mathbb{Z}$.
+Dedekind domains can be viewed as a generalization of principal ideal domains --- just as $\mathcal{O}_K$ may be viewed as a generalization of $\mathbb{Z}$.
 The notion of divisibility for ideals is the following: Let $\mathfrak{a}, \mathfrak{b} \subseteq \mathcal{O}$ be ideals in a Dedekind domain.
 Then $\mathfrak{a} \mid \mathfrak{b}$ is defined as $\mathfrak{b} \subseteq \mathfrak{a}$, the sum of ideals is
 \[
@@ -209,25 +209,82 @@ The product of two ideals is
 The ideals with this multiplication now have a unique prime factorization:
 
 \begin{theorem}[{name={\cite[Thm.~3.3]{neukirch}}}]
-	Every ideal $\mathfrak{a}$ of $\mathcal{O}$ different from $(0)$ and $(1)$ admits a factorization
+	Every ideal $\mathfrak{a}$ of a Dedekind domain $\mathcal{O}$ different from $(0)$ and $(1)$ admits a factorization
 	\[
 		\mathfrak{a} = \mathfrak{p}_1 \cdots \mathfrak{p}_r
 	\]
 	into nonzero prime ideals $\mathfrak{p}_i$ of $\mathcal{O}$ which is unique up to the order of the factors.
 \end{theorem}
 
-\section{$p$-adic numbers}
-\label{sec:p-adic numbers}
+There is a notion of dimension for rings which we will need later on
+\begin{definition}[{name=[Krull dimension]}]
+	The \Index{Krull dimension} of a commutative ring is defined as the supremum of integers $n$ such that there is a strict chain of prime ideals
+	\[
+		\mathfrak{p}_0 \subsetneq \mathfrak{p}_1 \subsetneq \mathfrak{p}_2 \subsetneq \cdots \subsetneq \mathfrak{p}_n
+	\]
+\end{definition}
+
+\section{Localization}
+\label{sec:localization}
+Given a integral domain $R$ it is easy to construct the \Index{field of fractions}
+\[
+	K = \set*{\frac{r}{s} \given r \in R, s \in R \setminus \set*{0}}
+\]
+This construction can be generalized by choosing any nonempty $S \subseteq R \setminus \set*{0}$ which is closed under multiplication instead of $R \setminus \set*{0}$.
+\[
+	S^{-1}R = \set*{\frac{r}{s} \given r \in R, s \in S}
+\]
+This is called the \Index{localization} of $R$ at $S$ and has a canonical ring structure.
+By the very definition of prime ideal the set $S=R \setminus \mathfrak{p}$ is closed under multiplication.
+In this special case one usually writes $R_{\mathfrak{p}}$ instead of $S^{-1}R$.
+
+The localization $R_{\mathfrak{p}}$ is often used when dealing with a single prime ideal $\mathfrak{p}$, because $R_{\mathfrak{p}}$ \textquote[\cite{neukirch}]{forgets everything that has nothing to do with $\mathfrak{p}$}, which is illustrated by the following lemmas:
+
+\begin{lemma}
+	The mapping
+	\[
+		\mathfrak{q} \longmapsto \mathfrak{q}R_{\mathfrak{p}}
+	\]
+	gives a one to one correspondence between the prime ideals $\mathfrak{q} \subseteq \mathfrak{p}$ of $R$ and the prime ideals of $R_{\mathfrak{p}}$.
+\end{lemma}
+
+\begin{lemma}
+	$R_{\mathfrak{p}}$ is a \Index{local ring}, i.e. $R_{\mathfrak{p}}$ has a unique maximal ideal, namely $\mathfrak{m}_{\mathfrak{p}} = \mathfrak{p} R_{\mathfrak{p}}$.
+	There is a canonical embedding
+	\[
+		R/\mathfrak{p} \hookrightarrow R_{\mathfrak{p}}/\mathfrak{m}_{\mathfrak{p}}
+	\]
+	indentifying $R_{\mathfrak{p}}/\mathfrak{m}_{\mathfrak{p}}$ with the field of fractions of $A/\mathfrak{p}$.
+\end{lemma}
+
+\todo[inline]{maybe talk about discrete valuation rings}
 
 
 
-\todo[inline]{Quadratische Zahlkörper erläutern}
-\todo[inline]{ring localization}
 
+\section{Affine schemes}
+\label{sec:affine schemes}
 
-\section{Affine shemes}
-\label{sec:affine shemes}
-
+Let's begin with a simple yet intructive example:
+\begin{example}
+	\label{ex:complex_poly}
+	Let $f$ be some complex polynomial.
+	$f$ may be interpreted as a function on the complex plane an for such a point $a$ the set of all functions that vanish at $a$ is a maximal ideal $\mathfrak{p}=(X-a)$ of $\mathbb{C}[X]$.
+	We get a one-to-one correspondence between the complex plane and the set $M$ of maximal ideals of $\mathbb{C}[X]$.
+	An element $f \in \mathbb{C}[X]$ may now be viewed as an function on $M$ as follows:
+	For every point $\mathfrak{p}=(X-a)$ of $M$ we have a canonical isomorphism
+	\[
+		\begin{tikzcd}
+			\mathbb{C}[X]/\mathfrak{p} \rar["\sim"] & \mathbb{C}
+		\end{tikzcd}
+	\]
+	induced by evaluation at $a$.
+	We may thus view the residue class
+	\[
+		f(\mathfrak{p}) \coloneqq f \mod \mathfrak{p} \in \kappa(\mathfrak{p})
+	\]
+	in the residue class field $\kappa(\mathfrak{p}) = \mathbb{C}[X]/\mathfrak{p}$ as the \enquote{value} of $f$ at the point $\mathfrak{p} \in M$.
+\end{example}
 
 \begin{definition}[{name=[prime spectrum]}]
 	Let $R$ be a commutative ring.
@@ -235,17 +292,34 @@ The ideals with this multiplication now have a unique prime factorization:
 		\Spec(R) \coloneqq \set*{\mathfrak{p} \subset R \given \mathfrak{p} \text{ is a prime ideal} }
 	\]
 	is called the \Index{prime spectrum} of $R$.
-	$\Spec(R)$ is endowed with the \Index{Zariski topology} with open basis $\mathcal{U} \coloneqq \set*{U_a}_{a \in R}$ where
+	$\Spec(R)$ is endowed with the \Index{Zariski topology} defined by requiring the following sets to be closed
 	\[
-		U_a \coloneqq \set*{\mathfrak{p} \in \Spec(R) \given a \notin \mathfrak{p}}
+		V(\mathfrak{a}) = \set*{\mathfrak{p} \given \mathfrak{p} \supseteq \mathfrak{a}}\marginnote{note that $V(\mathfrak{a}) \cup V(\mathfrak{b}) = V(\mathfrak{a} \mathfrak{b})$}
 	\]
+	where $\mathfrak{a}$ varies over the ideals of $R$.
 \end{definition}
 
-On the topological space $\Spec(R)$ there is a sheaf of commutative rings $\mathcal{O}_{\Spec(R)}$ defined by
+Note that $X= \Spec(R)$ is usually not Hausdorff and that the closed points correspond to the maximal ideals of $R$.
+Pickung up \cref{ex:complex_poly} we now can define the \enquote{value} of $f \in R$  as
 \[
-	\mathcal{O}_{\Spec(R)}(U_a) = R_a \coloneqq \set*{\frac{r}{a^n} \given r \in R, n \in \mathbb{N}_{\ge 0}}
+	f(\mathfrak{p}) \coloneqq f \mod \mathfrak{p}
 \]
-for $a \neq 0$
+in $\kappa(\mathfrak{p})$ the field of fractions of $R/\mathfrak{p}$.
+Therefore the values of $f$ do not lie in the same field in general!
+The zero ideal $\mathfrak{p}= (0)$ is called the \Index{generic point} of $X$, since its closure in the Zariski topology is the total space $X$.
+
+This geometric interpretation of ring elements as functions on $X=\Spec(R)$ can be further refined:
+
+\todo[inline]{example $\Spec(\mathbb{Z})$}
+
+
+
+\section{$p$-adic numbers}
+\label{sec:p-adic numbers}
+
+
+
+
 % section rings_and_ideals (end)
 
 
