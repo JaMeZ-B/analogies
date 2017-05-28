@@ -85,7 +85,7 @@ When dealing with knots one is often interested in two-dimensional representatio
 It's possible to turn any projection of a knot into a regular one by slight pertubation of the knot, so we only consider regular knot projections.
 If one marks the overcrossing line in the projection the knot itself can be recovered from the projection.
 
-\todo[inline]{draw trefoil}
+\todo[inline]{draw trefoil and other prime knots}
 
 \begin{definition}[{name=[crossing number]}]
 	The \Index{crossing number} of a knot (type) is the least number of crossings in any projection of a knot of that type.
@@ -342,6 +342,7 @@ Pickung up \cref{ex:complex_poly} we now can define the \enquote{value} of $f \i
 in $\kappa(\mathfrak{p})$ the field of fractions of $R/\mathfrak{p}$.
 Therefore the values of $f$ do not lie in the same field in general!
 The zero ideal $\mathfrak{p}= (0)$ is called the \Index{generic point} of $X$, since its closure in the Zariski topology is the total space $X$.
+The sets $V(\mathfrak{a})$ are the vanishing sets of ideals $\mathfrak{a}$.
 Let's consider another example
 
 \begin{example}
@@ -386,21 +387,41 @@ There are \Index{restriction maps} $\rho_{UV} \colon \mathcal{O}(U) \to \mathcal
 
 The structure sheaf $\mathcal{O}(X)$ for $X=\Spec(R)$ is in fact a sheaf and the couple $(X, \mathcal{O}_X)$ is called an \Index{affine scheme}.
 
+\subsection*{Quotients correspond to closed subschemes}
+\label{sub:quotients_corres}
+Let $I \subseteq R$ be some ideal.
+The projection $s \colon R \twoheadrightarrow R/I$ induces a continous map
+\mapdef{s^* \colon \Spec(R/I)}{\Spec{R}}{\mathfrak{p}}{s^{-1}(\mathfrak{p})}{}
+It is a basic algebra excercise to prove, that this is well defined and the image consists exactly of the prime ideals, that contain the ideal $I$.
+The image is therefore closed in the Zariski topology and gives rise to a closed subscheme of the affine scheme.
+
+\begin{definition}[{name=[stalk and germs]}]
+	The \Index{stalk} of the sheaf $\mathcal{F}$ at the point $x \in X$ is defined to be the direct limit 
+	\[
+		\mathcal{F}_x = \varinjlim_{U \ni x} \mathcal{F}(U)
+	\]
+	where $U$ varies over all open neighbourhoods of $x$.
+	Let $s_U \in \mathcal{F}(U)$ and $s_V \in \mathcal{F}(V)$ be sections.
+	They are equivalent if there is a neighbourhood $W \subseteq U \cap V$ of $x$ such that $s_U|_W = s_V|_W$.
+	Elements of $\mathcal{F}_x$ are such equivalence classes and called \Index{germs} of sections at $x$.
+\end{definition}
+
+The correspondence between completions and \enquote{inifitesimal neighbourhoods} can not be made completely explicit right now, but we consider an example in the next section. 
+
 \section{$p$-adic numbers}
 \label{sec:p-adic numbers}
 
 \begin{definition}
 	Fix a prime number $p$.
-	The \Index{$p$-adic integers} are defined as the projective limit
+	The \Index{$p$-adic integers} are defined as the projective limit 
 	\[
 		\mathbb{Z}_p = \varprojlim \mathbb{Z}/p^n \mathbb{Z}
 	\]
+	This is the \Index{completion} at the ideal $(p)$.
 \end{definition}
-This means a $p$-adic integer is a sequence $(a_n)_n$ of residue classes $a_n \in \mathbb{Z}/p^n \mathbb{Z}$ which are compatible in the following sense
-\[
-	0 \le n < m \implies a_n \equiv a_m \mod p^{n+1}
-\]
-i.e. the system looks like this
+This means a $p$-adic integer is a sequence $(a_n)_n$ of residue classes $a_n \in \mathbb{Z}/p^n \mathbb{Z}$ which are compatible in the following sense:
+Let $\lambda_n \colon \mathbb{Z}/p^{n+1} \mathbb{Z} \twoheadrightarrow \mathbb{Z}/p^n \mathbb{Z}$ be the canonical projection.
+Then $\lambda_n(a_{n+1}) = a_n$ for all $n \in \mathbb{N}$, i.e. the projective system looks like this
 \[
 	\begin{tikzcd}
 		\mathbb{Z}/p \mathbb{Z} & \mathbb{Z}/p^2 \mathbb{Z} \lar["\lambda_1"'] & \mathbb{Z}/p^3 \mathbb{Z} \lar["\lambda_1"'] & \ldots \lar["\lambda_3"']
@@ -410,22 +431,27 @@ The projective limit is a subring of the product ring $\prod_{n \in \mathbb{N}} 
 The additive inverse to $(a_n)_n$ is $(p^n - a_n)_n$ and every sequence with $a_1 \neq 0$ has a multiplicative inverse, since $a_1 \neq 0$ implies, that every $a_n$ is not divisible by $p^n$ and therefore as an inverse $b_n$.
 The sequence $(b_n)_n$ is an inverse for $(a_n)_n$.
 
-\begin{itemize}
-	\item The mapping $a \mapsto (a \mod p^n)_n$ defines an embedding $\mathbb{Z} \hookrightarrow \mathbb{Z}_p$
-	\item Every rational number $x$ can be written as $x = \pm \frac{a}{b} p^n$ for a unique $n$ and $p \nmid ab$.
-	The $p$-adic value of $x$ is then given by
-	\[
-		\abs{x}_p \coloneqq p^{-n}
-	\]
-	It can be easily shown, that this is a norm.
-	\item $\mathbb{Z}_p$ is an integral domain: If $ab=0$ we get $\abs*{a}_p \cdot \abs*{b}_p = 0$ and therfore $a=0$ or $b=0$.
-	\item $\mathbb{Z}_p$ is a local ring (even a discrete valuation ring) with maximal ideal $\mathfrak{m} = p \mathbb{Z}_p$.
-	The residue class field is $\mathbb{Z}_p/p \mathbb{Z}_p = \mathbb{Z}/p \mathbb{Z} = \mathbb{F}_p$.
-\end{itemize}
-
 \begin{definition}
 	The $p$-adic numbers $\mathbb{Q}_p$ are defined as the field of fractions of $\mathbb{Z}_p$.
 \end{definition}
+
+\begin{itemize}
+	\item The mapping $a \mapsto (a \mod p^n)_n$ defines an embedding $\mathbb{Z} \hookrightarrow \mathbb{Z}_p$.
+	\item Every rational number $x$ can be written as $x = \pm \frac{a}{b} p^n$ for a unique $n$ and $p \nmid ab$.
+	The \Index{$p$-adic absolute value} of $x$ is then given by
+	\[
+		\abs{x}_p \coloneqq p^{-n} \qquad \abs*{0}_p \coloneqq 0
+	\]
+	It can be easily shown, that this is a norm.
+	\item The completion of $\mathbb{Q}$ with respect to this norm is again $\mathbb{Q}_p$, since the completion consists of equivalence classes of Cauchy sequences in $\mathbb{Q}$ and the $p$-adic value of $x$ is small, if $x$ is divisible by a high power of $p$.
+	\item $\mathbb{Z}_p$ is an integral domain: If $ab=0$ we get $\abs*{a}_p \cdot \abs*{b}_p = 0$ and therfore $a=0$ or $b=0$.
+	\item $\mathbb{Z}_p$ is a local ring (even a discrete valuation ring) with maximal ideal $\mathfrak{m} = p \mathbb{Z}_p$.
+	The residue class field is $\mathbb{Z}_p/p \mathbb{Z}_p \cong \mathbb{Z}/p \mathbb{Z} = \mathbb{F}_p$ (Iso with isomorphism theorem).
+	On the spectras the inclusion $\mathbb{Z} \hookrightarrow \mathbb{Z}_p$ induces a map $\Spec(\mathbb{Z}_p) \to \Spec(\mathbb{Z})$, which extracts the scheme $\Spec(\mathbb{Z}_p)$ from the line $\Spec(\mathbb{Z})$.
+	\todo[inline]{draw picture}
+\end{itemize}
+
+
 
 % section rings_and_ideals (end)
 
