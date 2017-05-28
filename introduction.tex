@@ -38,7 +38,7 @@ To exclude some pathological knots we restrict our attention to \emph{tame knots
 \end{definition}
 
 \begin{example}
-	Every smooth knot is tame, because by a classical theorem of calculus every $C^1$ map $\gamma \colon [0,1] \to \mathbb{R}^n$ is rectifiable.\todo{Argument für die Umkehrung}
+	Every smooth knot is tame, because by a classical theorem of calculus every $C^1$ map $\gamma \colon [0,1] \to \mathbb{R}^n$ is rectifiable and this can be used to construct an ambient isotopy, see \textcite[Appendix I.]{introduction-knots} (very technical!).
 \end{example}
 
 \textcite[p.~9]{morishita} assumes every topological space considered to be a PL-manifold and every map between topological spaces to be PL as well.
@@ -66,6 +66,47 @@ Note that any two such tubular neighbourhoods are isotopic, see \textcite[Chap.~
 	Let $F \colon S^3 \times I \to S^3$ be an ambient isotopy, i.e. $F_0 = {\id_M}$, $F_t$ is a homeomorphism for each $t \in I$ and $F_1 \circ g_1 = g_2$.
 	Now $F_1$ restricted to the knot exterior $X_{K_1}$ is a homeomorphism $X_{K_1} \cong X_{K_2}$ and therefore $G_{K_1} \cong G_{K_2}$ since the fundamental group is a topological invariant.
 \end{proof}
+
+\begin{remark}
+	\begin{itemize}
+		\item The boundary of $X_K$ is a 2-dimensional torus
+		\item A \Index{meridian} of $K$ is a closed (oriented) curve which is the boundary of a disk $D^2$ in $V_K$.
+		\item A \Index{longitude} is a closed curve in $\partial X_K$ which intersetcts which intersects with a meridian at one point and is null-homologous in $X_K$.
+	\end{itemize}
+\end{remark}
+
+By removing a point $\infty \in S^3$ we may assume, that a knot $K$ is contained in $\mathbb{R}^3$.
+When dealing with knots one is often interested in two-dimensional representations of knots, so called \Index{knot diagrams}:
+
+\begin{definition}
+	A projection of $K$ onto a plane in $\mathbb{R}^3$ is called \Index{regular}, if it has only a finite number of multiple points, all of which are double points.
+\end{definition}
+
+It's possible to turn any projection of a knot into a regular one by slight pertubation of the knot, so we only consider regular knot projections.
+If one marks the overcrossing line in the projection the knot itself can be recovered from the projection.
+
+\todo[inline]{draw trefoil}
+
+\begin{definition}[{name=[crossing number]}]
+	The \Index{crossing number} of a knot (type) is the least number of crossings in any projection of a knot of that type.
+\end{definition}
+
+\begin{definition}
+	Given two knots $J$ and $K$ the \Index{connected sum} or \Index{composition} $J\#K$ is the knot obtained by removing a small arc from each knot projection and connecting the endpoint by two new arcs.
+
+	A knot is called \Index{prime}, if it cannot be written as the connected sum of two non-trivial knots and \Index{composite} otherwise.
+\end{definition}
+
+\begin{definition}
+	A knot is called alternating if it has a projection in which the crossings alternate between over- and undercrossings while travelling along the knot.
+\end{definition}
+
+\begin{lemma}
+	Two knot projections represent the same knot if and only if. up to planar isotopy, one can be obtained from the other via a sequence of \Index{Reidemeister moves}.
+\end{lemma}
+
+\todo[inline]{draw a picture}
+
 % section intro_knots (end)
 
 
@@ -179,10 +220,10 @@ Some basic properties of $\mathcal{O}_K$ concerning ideals are:
 	The ring $\mathcal{O}_K$ is noetherian, integrally closed and every prime ideal $\mathfrak{p} \neq 0$ is a maximal ideal.
 \end{theorem}
 
-This set of properties leads us to the following definition:
+This set of properties leads us to the following definition:\footnote{noetherian: every ascending chain of ideals is finite $\iff$ every ideal is finitely generated}
 
 \begin{definition}[{name=[Dedekind domain]}]
-	A noetherian, integrally closed integral domain in which every nonzero prime ideals maximal is called a \Index{Dedekind domain}.
+	A noetherian, integrally closed integral domain in which every nonzero prime ideal is maximal is called a \Index{Dedekind domain}.
 \end{definition}
 
 Dedekind domains can be viewed as a generalization of principal ideal domains --- just as $\mathcal{O}_K$ may be viewed as a generalization of $\mathbb{Z}$.
@@ -215,6 +256,8 @@ There is a notion of dimension for rings which we will need later on
 	\]
 \end{definition}
 
+Obviously every Dedekind domain has Krull dimension one.
+
 \section{Localization}
 \label{sec:localization}
 Given a integral domain $R$ it is easy to construct the \Index{field of fractions}
@@ -232,11 +275,11 @@ In this special case one usually writes $R_{\mathfrak{p}}$ instead of $S^{-1}R$.
 The localization $R_{\mathfrak{p}}$ is often used when dealing with a single prime ideal $\mathfrak{p}$, because $R_{\mathfrak{p}}$ \textquote[\cite{neukirch}]{forgets everything that has nothing to do with $\mathfrak{p}$}, which is illustrated by the following lemmas:
 
 \begin{lemma}
-	The mapping
+	The mappings
 	\[
-		\mathfrak{q} \longmapsto \mathfrak{q}R_{\mathfrak{p}}
+		\mathfrak{q} \longmapsto S^{-1}\mathfrak{q} \qquad \mathfrak{Q} \longmapsto \mathfrak{Q} \cap R
 	\]
-	gives a one to one correspondence between the prime ideals $\mathfrak{q} \subseteq \mathfrak{p}$ of $R$ and the prime ideals of $R_{\mathfrak{p}}$.
+	are mutually inverse one-to-one correspondences between the prime ideals $\mathfrak{q} \subseteq R \setminus S$ of $A$ and the prime ideals $\mathfrak{Q}$ of $S^{-1}R$.
 \end{lemma}
 
 \begin{lemma}
@@ -245,7 +288,7 @@ The localization $R_{\mathfrak{p}}$ is often used when dealing with a single pri
 	\[
 		R/\mathfrak{p} \hookrightarrow R_{\mathfrak{p}}/\mathfrak{m}_{\mathfrak{p}}
 	\]
-	indentifying $R_{\mathfrak{p}}/\mathfrak{m}_{\mathfrak{p}}$ with the field of fractions of $A/\mathfrak{p}$.
+	indentifying $R_{\mathfrak{p}}/\mathfrak{m}_{\mathfrak{p}}$ with the field of fractions of $R/\mathfrak{p}$.
 \end{lemma}
 
 \todo[inline]{maybe talk about discrete valuation rings}
@@ -253,14 +296,14 @@ The localization $R_{\mathfrak{p}}$ is often used when dealing with a single pri
 
 
 
-\section{Affine schemes}
+\section{Affine schemes -- the geometrization of ring theory}
 \label{sec:affine schemes}
 
 Let's begin with a simple yet intructive example:
 \begin{example}
 	\label{ex:complex_poly}
 	Let $f$ be some complex polynomial.
-	$f$ may be interpreted as a function on the complex plane an for such a point $a$ the set of all functions that vanish at $a$ is a maximal ideal $\mathfrak{p}=(X-a)$ of $\mathbb{C}[X]$.
+	$f$ may be interpreted as a function on the complex plane and for a point $a$ in the complex plane the set of all functions that vanish at $a$ is a maximal ideal $\mathfrak{p}=(X-a)$ of $\mathbb{C}[X]$.
 	We get a one-to-one correspondence between the complex plane and the set $M$ of maximal ideals of $\mathbb{C}[X]$.
 	An element $f \in \mathbb{C}[X]$ may now be viewed as an function on $M$ as follows:
 	For every point $\mathfrak{p}=(X-a)$ of $M$ we have a canonical isomorphism
@@ -288,6 +331,7 @@ Let's begin with a simple yet intructive example:
 		V(\mathfrak{a}) = \set*{\mathfrak{p} \given \mathfrak{p} \supseteq \mathfrak{a}}\marginnote{note that $V(\mathfrak{a}) \cup V(\mathfrak{b}) = V(\mathfrak{a} \mathfrak{b})$}
 	\]
 	where $\mathfrak{a}$ varies over the ideals of $R$.
+	A basis is given by the sets $U_f = \set*{\mathfrak{p} \given f \notin \mathfrak{p}}$.
 \end{definition}
 
 Note that $X= \Spec(R)$ is usually not Hausdorff and that the closed points correspond to the maximal ideals of $R$.
@@ -298,15 +342,53 @@ Pickung up \cref{ex:complex_poly} we now can define the \enquote{value} of $f \i
 in $\kappa(\mathfrak{p})$ the field of fractions of $R/\mathfrak{p}$.
 Therefore the values of $f$ do not lie in the same field in general!
 The zero ideal $\mathfrak{p}= (0)$ is called the \Index{generic point} of $X$, since its closure in the Zariski topology is the total space $X$.
+Let's consider another example
 
-This geometric interpretation of ring elements as functions on $X=\Spec(R)$ can be further refined:
+\begin{example}
+	$X= \Spec(\mathbb{Z})$ may be represented by a line, where for every prime number there is a closed point and there is the generic point $(0)$ as well.
+	Since
+	\[
+		X \setminus V(\mathfrak{a}) = \set*{\mathfrak{p} \given \mathfrak{p} \not\supseteq \mathfrak{a}}
+	\]
+	an open set is obtained by by throwing out finitely many prime numbers $p_1, \ldots, p_n$.
+	The value of $a \in \mathbb{Z}$ at the point $(p)$ is the residue class
+	\[
+		a(p) = a \mod p \in \mathbb{Z}/p \mathbb{Z}
+	\]
+	Therefore the field\emph{s} of of values are then $\mathbb{Z}/2 \mathbb{Z}, \mathbb{Z}/3 \mathbb{Z}, \ldots , \mathbb{Q}$.
+\end{example}
 
-\todo[inline]{example $\Spec(\mathbb{Z})$}
+This geometric interpretation of ring elements as functions on $X=\Spec(R)$ can be further refined by the so called \Index{structure sheaf} $\mathcal{O}_X$:
+For simplicity we restrict our attention to one-dimensional integral domains $R$.
+We associate to ever nonempty open set $U \subseteq X = \Spec(R)$ the ring of \enquote{regular functions} on $U$
+\[
+	\mathcal{O}(U) = \set*{\frac{f}{g} \given g(\mathfrak{p}) \neq 0 \text{ for all } \mathfrak{p} \in  U}
+\]
+This is the localization of $R$ with respect to the multiplicative set $S = R \setminus \bigcup_{\mathfrak{p} \in U} \mathfrak{p}$.
+There are \Index{restriction maps} $\rho_{UV} \colon \mathcal{O}(U) \to \mathcal{O}(V)$ which turn the system of rings $\mathcal{O}(U)$ into a sheaf on $X$.
 
+\begin{definition}[{name=[presheaf]}]
+	A \Index{presheaf} $\mathcal{F}$ of rings is a contravariant functor
+	\[
+		\mathcal{F} \colon X_{\mathrm{top}} \longrightarrow \textsc{Rings}
+	\]
+	such that $\mathcal{F}(\emptyset)=0$, where $X_{\mathrm{top}}$ is the category which objects are the open sets of $X$ and the morphisms are given by inclusion.
+	An element in $\mathcal{F}(U)$ is called \Index{section} over $U$.
+\end{definition}
+
+\begin{definition}[{name=[sheaf]}]
+	A presheaf $\mathcal{F}$ on the topological space $X$ is called a \Index{sheaf}, if for all open coverings $\set*{U_i}$ of any open set $U$ one has
+	\begin{itemize}[(i)]
+		\item If $s,s' \in \mathcal{F}(U)$ with $s|_{U_i} = s'|_{U_i}$ for all $i \implies s=s'$.
+		\item If $s_i \in \mathcal{F}(U_i)$ is a family of sections such that $s_i|_{U_i \cap U_j} = s_j|_{U_i \cap U_j}$ for alle $i,j$, then there is a section $s \in \mathcal{F}(U)$ such that $s|_{U_i} = s_i$ for all $i$.
+	\end{itemize}
+\end{definition}
+
+The structure sheaf $\mathcal{O}(X)$ for $X=\Spec(R)$ is in fact a sheaf and the couple $(X, \mathcal{O}_X)$ is called an \Index{affine scheme}.
 
 \section{$p$-adic numbers}
 \label{sec:p-adic numbers}
-\todo[inline]{nur $p$-adisch nicht $\mathfrak{p}$-adisch?}
+\todo[inline]{nur $p$-adisch}
 
 
 
