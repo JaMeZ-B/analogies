@@ -388,9 +388,44 @@ The structure sheaf $\mathcal{O}(X)$ for $X=\Spec(R)$ is in fact a sheaf and the
 
 \section{$p$-adic numbers}
 \label{sec:p-adic numbers}
-\todo[inline]{nur $p$-adisch}
 
+\begin{definition}
+	Fix a prime number $p$.
+	The \Index{$p$-adic integers} are defined as the projective limit
+	\[
+		\mathbb{Z}_p = \varprojlim \mathbb{Z}/p^n \mathbb{Z}
+	\]
+\end{definition}
+This means a $p$-adic integer is a sequence $(a_n)_n$ of residue classes $a_n \in \mathbb{Z}/p^n \mathbb{Z}$ which are compatible in the following sense
+\[
+	0 \le n < m \implies a_n \equiv a_m \mod p^{n+1}
+\]
+i.e. the system looks like this
+\[
+	\begin{tikzcd}
+		\mathbb{Z}/p \mathbb{Z} & \mathbb{Z}/p^2 \mathbb{Z} \lar["\lambda_1"'] & \mathbb{Z}/p^3 \mathbb{Z} \lar["\lambda_1"'] & \ldots \lar["\lambda_3"']
+	\end{tikzcd}
+\]
+The projective limit is a subring of the product ring $\prod_{n \in \mathbb{N}} \mathbb{Z}/p^n \mathbb{Z}$, therefore addition and multiplication are defined componentwise.
+The additive inverse to $(a_n)_n$ is $(p^n - a_n)_n$ and every sequence with $a_1 \neq 0$ has a multiplicative inverse, since $a_1 \neq 0$ implies, that every $a_n$ is not divisible by $p^n$ and therefore as an inverse $b_n$.
+The sequence $(b_n)_n$ is an inverse for $(a_n)_n$.
 
+\begin{itemize}
+	\item The mapping $a \mapsto (a \mod p^n)_n$ defines an embedding $\mathbb{Z} \hookrightarrow \mathbb{Z}_p$
+	\item Every rational number $x$ can be written as $x = \pm \frac{a}{b} p^n$ for a unique $n$ and $p \nmid ab$.
+	The $p$-adic value of $x$ is then given by
+	\[
+		\abs{x}_p \coloneqq p^{-n}
+	\]
+	It can be easily shown, that this is a norm.
+	\item $\mathbb{Z}_p$ is an integral domain: If $ab=0$ we get $\abs*{a}_p \cdot \abs*{b}_p = 0$ and therfore $a=0$ or $b=0$.
+	\item $\mathbb{Z}_p$ is a local ring (even a discrete valuation ring) with maximal ideal $\mathfrak{m} = p \mathbb{Z}_p$.
+	The residue class field is $\mathbb{Z}_p/p \mathbb{Z}_p = \mathbb{Z}/p \mathbb{Z} = \mathbb{F}_p$.
+\end{itemize}
+
+\begin{definition}
+	The $p$-adic numbers $\mathbb{Q}_p$ are defined as the field of fractions of $\mathbb{Z}_p$.
+\end{definition}
 
 % section rings_and_ideals (end)
 
